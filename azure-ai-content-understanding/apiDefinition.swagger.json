@@ -1,0 +1,76 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure AI Content Understanding GCC custom connector",
+    "description": "Starter custom connector for Azure AI Content Understanding. Verify the target resource and region are approved before use.",
+    "version": "1.0.0"
+  },
+  "host": "{resourceName}.cognitiveservices.azure.us",
+  "basePath": "/contentunderstanding",
+  "schemes": ["https"],
+  "produces": ["application/json"],
+  "consumes": ["application/json"],
+  "x-ms-parameterized-host": {
+    "hostTemplate": "{resourceName}.cognitiveservices.azure.us",
+    "useSchemePrefix": true,
+    "parameters": [
+      {
+        "name": "resourceName",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "x-ms-summary": "Content Understanding resource name",
+        "x-ms-visibility": "important"
+      }
+    ]
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    }
+  },
+  "security": [{ "apiKey": [] }],
+  "paths": {
+    "/analyzers/{analyzerId}:analyze": {
+      "post": {
+        "summary": "Analyze content",
+        "operationId": "AnalyzeContent",
+        "parameters": [
+          {
+            "name": "analyzerId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Analyzer ID"
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "2025-05-01-preview",
+            "x-ms-summary": "API version"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "type": "object" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Analysis accepted",
+            "schema": { "type": "object" }
+          },
+          "200": {
+            "description": "Analysis result",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}
