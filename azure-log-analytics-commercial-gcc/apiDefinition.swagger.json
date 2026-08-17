@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "title": "Azure Log Analytics (commercial API)",
-    "description": "Run Kusto queries against a commercial Azure Log Analytics workspace from a GCC Power Platform environment. This connector does not provide an Azure Government endpoint.",
+    "description": "Run Kusto queries against a commercial Azure Log Analytics workspace from a GCC Power Platform environment using api.loganalytics.azure.com. This connector does not provide or validate an Azure Government endpoint.",
     "version": "1.0.1"
   },
-  "host": "api.loganalytics.io",
+  "host": "api.loganalytics.azure.com",
   "basePath": "/v1",
   "schemes": ["https"],
   "consumes": ["application/json"],

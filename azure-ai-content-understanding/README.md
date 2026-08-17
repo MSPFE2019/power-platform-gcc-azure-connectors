@@ -1,6 +1,6 @@
 # Azure AI Content Understanding custom connector
 
-This connector exposes the Content Understanding analyze operation through an API-key connection.
+This connector exposes a starter Content Understanding analyze operation through an API-key connection. It does not assert that the bundled request/response contract or API version is current.
 
 Microsoft currently lists the managed connector as unavailable in GCC, GCC High, and DoD. Confirm the Azure service deployment, endpoint suffix, API version, and authorization boundary before importing. A custom connector does not confer Microsoft compliance authorization.
 
@@ -8,7 +8,7 @@ Microsoft currently lists the managed connector as unavailable in GCC, GCC High,
 
 - A Power Apps or Power Automate GCC environment.
 - An Azure AI Content Understanding resource and analyzer approved for the target cloud and workload.
-- The resource name, analyzer ID, and supported API version.
+- The resource name, analyzer ID, and an API version verified against the current Microsoft service documentation and resource.
 - An Azure AI resource key with permission to call the analyzer.
 - The analyzer input contract and any required source-file or blob permissions.
 - Permission to create custom connectors and use premium connectors.
@@ -53,7 +53,7 @@ The Swagger definition uses the Azure Government-style host `{resourceName}.cogn
 
 ### 3. Test the connection
 
-1. Call **Analyze content** with a known analyzer ID and the approved API version.
+1. Call **Analyze content** with a known analyzer ID and an API version verified against the current Microsoft service documentation and resource. Do not assume the bundled preview version is supported.
 2. Start with a non-sensitive test document or image and the smallest valid request body.
 3. Confirm whether the response is synchronous (`200`) or accepted for processing (`202`).
 4. Validate the returned fields before using them in a production app or flow.

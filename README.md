@@ -39,7 +39,7 @@ Uses an Azure AI Content Understanding endpoint and API-key authentication. The 
 
 ### Azure Log Analytics
 
-The Log Analytics package is a GCC-usable custom connector that calls the **commercial** `api.loganalytics.io` API. It is not an Azure Government endpoint. Do not use it for data that must remain inside an Azure Government, GCC High, DoD, CUI, ITAR, or CJIS boundary unless your security and compliance authority has approved that data path.
+The Log Analytics package is a GCC-usable custom connector that calls the **commercial** `api.loganalytics.azure.com` API. It is not an Azure Government endpoint. Do not use it for data that must remain inside an Azure Government, GCC High, DoD, CUI, ITAR, or CJIS boundary unless your security and compliance authority has approved that data path. Azure Government deployments require a separately verified government endpoint and service contract; do not substitute one cloud's host for the other.
 
 See the package README for the required app registration, API permissions, OAuth configuration, and test query.
 

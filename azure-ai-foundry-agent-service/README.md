@@ -1,6 +1,8 @@
 # Azure AI Foundry Agent Service custom connector
 
-This is an Entra ID OAuth starter definition targeting an Azure Government-style endpoint and project API.
+> **Important lifecycle warning:** Do not use this definition as evidence that the classic Azure AI Foundry/Agent Service API is current. Classic and preview API surfaces can be deprecated or changed. Verify the current Microsoft Foundry documentation, service availability, project API, API version, endpoint, and retirement notices immediately before import and again before production use.
+
+This is an Entra ID OAuth starter definition targeting an Azure Government-style endpoint and project API. It is not a Microsoft-supported connector and makes no claim that the endpoint or API contract is currently available.
 
 Microsoft currently lists the managed connector as unavailable in GCC. Confirm the service endpoint, API version, project API, and Azure Government availability before importing. If the service is not available in the target cloud, this connector cannot make it available.
 
@@ -9,6 +11,7 @@ Microsoft currently lists the managed connector as unavailable in GCC. Confirm t
 - A Power Apps or Power Automate GCC environment.
 - An Azure AI Foundry resource and project approved and provisioned in the target government cloud.
 - The resource name, project name, API version, and agent/project API contract.
+- A current, source-verified API contract; the version in the Swagger is a placeholder and must not be treated as a compatibility guarantee.
 - An Entra ID application registration in the same government tenant, or an approved multi-tenant registration.
 - A redirect URI supported by Power Platform custom connectors.
 - An identity authorized to access the AI Foundry project and invoke agents.

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Azure AI Content Understanding GCC custom connector",
-    "description": "Starter custom connector for Azure AI Content Understanding. Verify the target resource and region are approved before use.",
+    "description": "Unverified starter custom connector for Azure AI Content Understanding. Verify the current analyzer contract and API version against Microsoft documentation and the target resource; this definition does not assert compatibility.",
     "version": "1.0.0"
   },
   "host": "{resourceName}.cognitiveservices.azure.us",
@@ -50,8 +50,8 @@
             "in": "query",
             "required": true,
             "type": "string",
-            "default": "2025-05-01-preview",
-            "x-ms-summary": "API version"
+            "description": "Required. Supply an API version verified against the current service contract and target resource; no default is asserted by this starter definition.",
+            "x-ms-summary": "Verified API version"
           },
           {
             "name": "body",

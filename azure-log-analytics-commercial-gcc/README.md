@@ -1,6 +1,6 @@
 # Azure Log Analytics custom connector for GCC
 
-This package is based on [MSPFE2019/Azure-Log-Analytics-Connector](https://github.com/MSPFE2019/Azure-Log-Analytics-Connector) and calls the **commercial** Azure Log Analytics REST API at `https://api.loganalytics.io`.
+This package is based on [MSPFE2019/Azure-Log-Analytics-Connector](https://github.com/MSPFE2019/Azure-Log-Analytics-Connector) and calls the **commercial** Azure Log Analytics REST API at `https://api.loganalytics.azure.com`.
 
 It is intended for a Power Platform GCC environment that is explicitly permitted to query a commercial Azure Log Analytics workspace. It is **not** an Azure Government connector.
 
@@ -30,7 +30,7 @@ This connector uses Microsoft Entra ID OAuth 2.0. The connection is made by a si
 
 ## Important data boundary
 
-This connector sends queries to the commercial `api.loganalytics.io` service. GCC hosting does not turn the commercial Log Analytics workspace into Azure Government. Do not send or retrieve regulated data through this connector unless the organization's security authority has approved the cross-cloud data path.
+This connector sends queries to the commercial `api.loganalytics.azure.com` service. GCC hosting does not turn the commercial Log Analytics workspace into Azure Government. Do not send or retrieve regulated data through this connector unless the organization's security authority has approved the cross-cloud data path. A government deployment is a different contract: verify its approved host, authority, audience, and data boundary independently rather than changing this connector's host.
 
 ## How to configure
 
@@ -61,11 +61,11 @@ This connector sends queries to the commercial `api.loganalytics.io` service. GC
    - Power Automate: `https://gov.flow.microsoft.us`
 2. Open **Custom connectors** and choose **New custom connector** > **Import an OpenAPI file**.
 3. Upload `apiDefinition.swagger.json`.
-4. On **General**, confirm the host is `api.loganalytics.io`.
+4. On **General**, confirm the host is `api.loganalytics.azure.com`.
 5. On **Security**, select **OAuth 2.0** and Azure Active Directory.
 6. Enter the client ID, client secret, and tenant ID from the app registration.
-7. Use the commercial resource URL `https://api.loganalytics.io/`.
-8. Do not replace the authorization or token URLs with `.us` endpoints; this package intentionally targets the commercial API.
+7. Use the commercial resource URL `https://api.loganalytics.azure.com/`.
+8. This package intentionally targets the commercial API. Do not change it to a government host unless you have separately verified the government API contract, authority, audience, and authorization requirements.
 9. Create the connector and create a new connection from its **Test** tab.
 
 ### 4. Test the connection

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Azure AI Foundry Agent Service GCC custom connector",
-    "description": "Starter custom connector for Azure AI Foundry Agent Service using Microsoft Entra ID. Verify that the target service and project are available in the approved government cloud before import.",
+    "description": "Unverified starter custom connector for an Azure AI Foundry Agent Service project using Microsoft Entra ID. Classic/preview Foundry APIs may be deprecated or changed; verify the current Microsoft contract, endpoint, API version, and government-cloud availability before import.",
     "version": "1.0.0"
   },
   "host": "{resourceName}.services.ai.azure.us",
