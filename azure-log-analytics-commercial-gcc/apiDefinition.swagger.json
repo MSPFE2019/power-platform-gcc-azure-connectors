@@ -1,0 +1,138 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure Log Analytics (commercial API)",
+    "description": "Run Kusto queries against a commercial Azure Log Analytics workspace from a GCC Power Platform environment. This connector does not provide an Azure Government endpoint.",
+    "version": "1.0.1"
+  },
+  "host": "api.loganalytics.io",
+  "basePath": "/v1",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "oauth2-auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/common/oauth2/token",
+      "scopes": {}
+    },
+    "oAuthClientCredentials": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "https://login.microsoftonline.com/common/oauth2/token",
+      "scopes": {}
+    }
+  },
+  "security": [
+    { "oauth2-auth": [] },
+    { "oAuthClientCredentials": [] }
+  ],
+  "paths": {
+    "/workspaces/{workspaceId}/query": {
+      "post": {
+        "tags": ["Queries"],
+        "summary": "Run a Kusto query",
+        "operationId": "RunQuery",
+        "parameters": [
+          { "$ref": "#/parameters/workspaceId" },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/QueryRequest" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query results",
+            "schema": { "$ref": "#/definitions/QueryResponse" }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/tables": {
+      "get": {
+        "tags": ["Tables"],
+        "summary": "List all tables",
+        "operationId": "ListTables",
+        "parameters": [
+          { "$ref": "#/parameters/workspaceId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Table list",
+            "schema": { "$ref": "#/definitions/TablesResponse" }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/tables/{tableName}/schema": {
+      "get": {
+        "tags": ["Tables"],
+        "summary": "Get table schema",
+        "operationId": "GetTableSchema",
+        "parameters": [
+          { "$ref": "#/parameters/workspaceId" },
+          {
+            "name": "tableName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Table name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schema details",
+            "schema": { "$ref": "#/definitions/TableSchemaResponse" }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "workspaceId": {
+      "name": "workspaceId",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "format": "uuid",
+      "description": "Commercial Log Analytics workspace GUID",
+      "x-ms-summary": "Workspace ID"
+    }
+  },
+  "definitions": {
+    "QueryRequest": {
+      "type": "object",
+      "required": ["query"],
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Kusto Query Language text"
+        },
+        "timespan": {
+          "type": "string",
+          "description": "ISO 8601 duration or start/end time range"
+        },
+        "workspaces": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "QueryResponse": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "TablesResponse": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "TableSchemaResponse": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
