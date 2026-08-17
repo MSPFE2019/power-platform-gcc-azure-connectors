@@ -1,0 +1,76 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure AI Foundry Agent Service GCC custom connector",
+    "description": "Starter custom connector for Azure AI Foundry Agent Service using Microsoft Entra ID. Verify that the target service and project are available in the approved government cloud before import.",
+    "version": "1.0.0"
+  },
+  "host": "{resourceName}.services.ai.azure.us",
+  "basePath": "/api/projects/{projectName}/openai/v1",
+  "schemes": ["https"],
+  "produces": ["application/json"],
+  "consumes": ["application/json"],
+  "x-ms-parameterized-host": {
+    "hostTemplate": "{resourceName}.services.ai.azure.us",
+    "useSchemePrefix": true,
+    "parameters": [
+      {
+        "name": "resourceName",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "x-ms-summary": "AI Foundry resource name",
+        "x-ms-visibility": "important"
+      }
+    ]
+  },
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.us/common/oauth2/v2.0/authorize",
+      "tokenUrl": "https://login.microsoftonline.us/common/oauth2/v2.0/token",
+      "scopes": {
+        "https://cognitiveservices.azure.us/.default": "Access Azure Cognitive Services in Azure Government"
+      }
+    }
+  },
+  "security": [{ "oauth2": ["https://cognitiveservices.azure.us/.default"] }],
+  "paths": {
+    "/responses": {
+      "post": {
+        "summary": "Create agent response",
+        "operationId": "CreateAgentResponse",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "AI Foundry project name"
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "2025-05-15-preview",
+            "x-ms-summary": "API version"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "type": "object" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent response",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}
