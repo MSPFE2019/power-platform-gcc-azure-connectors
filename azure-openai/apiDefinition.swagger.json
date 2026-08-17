@@ -1,0 +1,127 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure OpenAI GCC custom connector",
+    "description": "Starter custom connector for an approved Azure OpenAI resource. This is not a Microsoft-managed GCC connector and does not change service authorization or data residency.",
+    "version": "1.0.0"
+  },
+  "host": "{resourceName}.openai.azure.com",
+  "basePath": "/",
+  "schemes": ["https"],
+  "produces": ["application/json"],
+  "consumes": ["application/json"],
+  "x-ms-parameterized-host": {
+    "hostTemplate": "{resourceName}.openai.azure.com",
+    "useSchemePrefix": true,
+    "parameters": [
+      {
+        "name": "resourceName",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "x-ms-summary": "Azure OpenAI resource name",
+        "x-ms-visibility": "important"
+      }
+    ]
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "name": "api-key",
+      "in": "header"
+    }
+  },
+  "security": [{ "apiKey": [] }],
+  "paths": {
+    "/openai/deployments/{deploymentName}/chat/completions": {
+      "post": {
+        "summary": "Create chat completion",
+        "operationId": "CreateChatCompletion",
+        "parameters": [
+          {
+            "name": "deploymentName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Deployment name"
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "2024-10-21",
+            "x-ms-summary": "API version"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/ChatCompletionRequest" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Chat completion response",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    },
+    "/openai/deployments/{deploymentName}/embeddings": {
+      "post": {
+        "summary": "Create embeddings",
+        "operationId": "CreateEmbeddings",
+        "parameters": [
+          {
+            "name": "deploymentName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Deployment name"
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "2024-10-21",
+            "x-ms-summary": "API version"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/EmbeddingRequest" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Embedding response",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ChatCompletionRequest": {
+      "type": "object",
+      "required": ["messages"],
+      "properties": {
+        "messages": { "type": "array", "items": { "type": "object" } },
+        "temperature": { "type": "number", "format": "float" },
+        "max_tokens": { "type": "integer", "format": "int32" },
+        "response_format": { "type": "object" }
+      }
+    },
+    "EmbeddingRequest": {
+      "type": "object",
+      "required": ["input"],
+      "properties": {
+        "input": { "type": "array", "items": { "type": "string" } },
+        "encoding_format": { "type": "string" }
+      }
+    }
+  }
+}
