@@ -17,6 +17,17 @@ It is intended for a Power Platform GCC environment that is explicitly permitted
   - **Microsoft Graph**: delegated `User.Read` if the OAuth consent flow requests it.
 - The Power Platform maker must be allowed to create custom connectors and use premium connectors.
 
+## Connection user
+
+This connector uses Microsoft Entra ID OAuth 2.0. The connection is made by a signed-in user, while the app registration supplies the OAuth configuration.
+
+- Use a dedicated integration user or approved operational owner for unattended production flows when supported by the organization.
+- The connection user must be authorized to query the target workspace through Azure role-based access control.
+- Grant the least-privilege workspace role required, normally Log Analytics Reader or an equivalent approved role.
+- Do not use a personal connection for production flows unless governance explicitly permits it.
+- Document a backup connection owner because flows may stop when the connection owner leaves or loses access.
+- Use separate connections for development, test, and production.
+
 ## Important data boundary
 
 This connector sends queries to the commercial `api.loganalytics.io` service. GCC hosting does not turn the commercial Log Analytics workspace into Azure Government. Do not send or retrieve regulated data through this connector unless the organization's security authority has approved the cross-cloud data path.
